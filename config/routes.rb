@@ -16,11 +16,20 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'homes/top'
+    resources :customers, only: [:index, :show, :edit, :update]
   end
 
   scope module: :public do
     root to: 'homes#top'
     get 'homes/about'
+    
+    get 'customers/mypage' => 'customers#show', as: 'mypage'
+    # customers/editのようにするとdeviseのルーティングとかぶってしまうためinformationを付け加えている。
+    get 'customers/information/edit' => 'customers#edit', as: 'edit_information'
+    patch 'customers/information' => 'customers#update', as: 'update_information'
+    get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
+    put 'customers/information' => 'customers#update'
+    patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
   end
 
 end
