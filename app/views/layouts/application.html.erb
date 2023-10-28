@@ -22,7 +22,7 @@
                 <%= link_to "商品一覧", "", class:"btn btn-outline-secondary" %>
               </li>
               <li class="mr-5">
-                <%= link_to "会員一覧", "", class:"btn btn-outline-secondary" %>
+                <%= link_to "会員一覧", admin_customers_path, class:"btn btn-outline-secondary" %>
               </li>
               <li class="mr-5">
                 <%= link_to "注文履歴一覧", "", class:"btn btn-outline-secondary" %>
@@ -35,7 +35,7 @@
               </li>
             <% elsif customer_signed_in? %>
               <li class="mr-5">
-                <%= link_to "マイページ", "", class:"btn btn-outline-secondary" %>
+                <%= link_to "マイページ", mypage_path, class:"btn btn-outline-secondary" %>
               </li>
               <li class="mr-5">
                 <%= link_to "商品一覧", "", class:"btn btn-outline-secondary" %>
@@ -54,7 +54,7 @@
                 <%= link_to "商品一覧", "", class:"btn btn-outline-secondary" %>
               </li>
               <li class="mr-5">
-                <%= link_to "新規登録", "", class:"btn btn-outline-secondary" %>
+                <%= link_to "新規登録", new_customer_registration_path, class:"btn btn-outline-secondary" %>
               </li>
               <li class="">
                 <%= link_to "ログイン", new_customer_session_path, class:"btn btn-outline-secondary" %>
