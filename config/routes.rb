@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'homes/top'
     resources :customers, only: [:index, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
   end
 
   scope module: :public do

@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="offset-md-1">
+    <h5 class="px-4 table-secondary mb-4">ジャンル</h5>
+  </div>
+</div>
+
+<%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch do |f| %>
+
+  <div class="form-group row">
+    <label for="inputName" class="col-sm-2 col-form-label">ジャンル名</label>
+    <div class="col-sm-5">
+      <%= f.text_field :name, autofocus: true, id:"inputName", placeholder: "ジャンル名", class:"form-control" %>
+    </div>
+  </div>
+
+  <%= f.submit '変更を保存', class: "btn btn-success" %>
+
+<% end %>

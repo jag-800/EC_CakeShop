@@ -20,3 +20,11 @@ Customer.create!(
   phone_number: '0000000000',
   is_active: true
 )
+
+Genre.create!([
+    { name: "ケーキ" },
+    { name: "焼き菓子" },
+    { name: "プリン" },
+    { name: "和菓子" },
+    { name: "アイス" }
+])
