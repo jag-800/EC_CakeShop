@@ -14,4 +14,13 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
+  namespace :admin do
+    get 'homes/top'
+  end
+
+  scope module: :public do
+    root to: 'homes#top'
+    get 'homes/about'
+  end
+
 end
