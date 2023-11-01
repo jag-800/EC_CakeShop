@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'homes/top'
     resources :customers, only: [:index, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :items, except: [:destroy]
   end
 
   scope module: :public do
@@ -30,6 +32,8 @@ Rails.application.routes.draw do
     get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
     put 'customers/information' => 'customers#update'
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
+    
+    resources :items, only: [:index, :show]
   end
 
 end
