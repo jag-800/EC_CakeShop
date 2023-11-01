@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
-  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # 顧客用
@@ -38,6 +32,8 @@ Rails.application.routes.draw do
     get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
     put 'customers/information' => 'customers#update'
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
+    
+    resources :items, only: [:index, :show]
   end
 
 end
