@@ -36,7 +36,7 @@
            <%= cart_item.subtotal %>
         </td>
         <td class="border-dark">
-          <%= link_to "削除する", cart_items_path, method: :delete, class: "btn btn-danger" %>
+          <%= link_to "削除する", item_cart_item_path(item_id: item.id, id: cart_item.id), method: :delete, class: "btn btn-danger" %>
         </td>
       </tr>
     <% end %>
