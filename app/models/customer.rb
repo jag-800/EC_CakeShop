@@ -3,7 +3,7 @@ class Customer < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+
   has_many :cart_items
 
   validates :last_name, presence: true
@@ -23,4 +23,7 @@ class Customer < ApplicationRecord
     last_name_kana + " " + first_name_kana
   end
 
+  def has_in_cart(item)
+    cart_items.find_by(item_id: item.id)
+  end
 end
