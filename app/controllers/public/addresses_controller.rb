@@ -32,6 +32,8 @@ class Public::AddressesController < ApplicationController
   end
   
   def destroy
+    @address.destroy
+    redirect_to addresses_path
   end
   
   private
