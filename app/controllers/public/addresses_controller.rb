@@ -1,5 +1,10 @@
 class Public::AddressesController < ApplicationController
+  before_action :authenticate_customer!
+  before_action :ensure_address, only: [:edit, :update, :destroy]
+  
   def index
+    @addresses = current_customer.addresses
+    @address = Address.new
   end
 
   def edit
@@ -17,6 +22,12 @@ class Public::AddressesController < ApplicationController
   private
   
   def address_params
-    
+    params.require(:address).permit(:post_code, :address, :name)
+  end
+  
+  def ensure_address
+    @addresses = current_customer.address
+    @address = @addresses.find_by(id: params[:id])
+    redirect_to addresses_path unless @address
   end
 end
