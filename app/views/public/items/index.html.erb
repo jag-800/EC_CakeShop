@@ -17,7 +17,7 @@
   <div class="col-md-8">
     <div class="d-flex ml-1">
       <h4 class="mr-2"><b>商品一覧</b></h4>
-      <h6 class="pt-2">(全<%= @items.count %>件)</h6>
+      <h6 class="pt-2">(全<%= @all_items_count %>件)</h6>
     </div>
 
     <div class="row">
@@ -27,7 +27,7 @@
             <%= image_tag item.get_item_image(150,100) %>
           <% end %>
           <p><%= item.name %></p>
-          <p>￥<%= number_with_delimiter(item.price) %></p>
+          <p>￥<%= number_with_delimiter(item.with_tax_price) %></p>
         </div>
       <% end %>
     </div>
