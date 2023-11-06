@@ -34,26 +34,20 @@
     </table>
   </div>
 
-  <!--0に対して小計の数値を徐々に増やす-->
-  <% @cart_items.each do |cart_item| %>
-    <% @sum += cart_item.item.price * cart_item.amount %>
-  <% end %>
-
-
   <div class="col-md-3">
     <table>
       <tbody class="table table-bordered border-dark">
         <tr>
           <td class="table-secondary border-dark">送料</td>
-          <td class="border-dark"><%= @shipping_cost %></td>
+          <td class="border-dark"><%= 800 %></td>
         </tr>
         <tr>
           <td class="table-secondary border-dark">商品合計</td>
-          <td class="border-dark"><%=  number_with_delimiter(@sum) %></td>
+          <td class="border-dark"><%=  number_with_delimiter(@cart_items.sum(&:subtotal)) %></td>
         </tr>
         <tr>
           <td class="table-secondary border-dark">請求金額</td>
-          <td class="border-dark"><%= number_with_delimiter(@shipping_cost + @sum) %></td>
+          <td class="border-dark"><%= number_with_delimiter(800 + @cart_items.sum(&:subtotal)) %></td>
         </tr>
       </tbody>
     </table>
@@ -102,7 +96,7 @@
     <%= f.hidden_field :address %>
     <%= f.hidden_field :payment_method %>
     <%= f.hidden_field :shipping_cost, value: 800 %>
-    <%= f.hidden_field :total_payment, value: (@shipping_cost + @sum) %>
+    <%= f.hidden_field :total_payment, value: (800 + @cart_items.sum(&:subtotal)) %>
     <%= f.submit "注文を確定する", "data-confirm" => "注文を確定しますか", class:"btn btn-success mx-auto" %>
   <% end %>
 </div>

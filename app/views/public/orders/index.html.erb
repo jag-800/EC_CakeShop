@@ -30,7 +30,7 @@
         </td>
         <td class="border-dark">
           <% order.order_details.each do |detail| %>
-            <%= detail.item.name %>
+            <%= detail.item.name %><br>
           <% end %>
         </td>
         <td class="border-dark"><%= number_with_delimiter(order.total_payment) %>円</td>

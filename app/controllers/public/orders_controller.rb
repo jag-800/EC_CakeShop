@@ -13,7 +13,7 @@ class Public::OrdersController < ApplicationController
     elsif params[:address_option] == '1'
       @selected_address = current_customer.addresses.find(params[:address_id])
       @order.get_shipping_informations_from(@selected_address)
-    elsif params[:address_option] == '2' && (@order.postal_code =~ /\A\d{7}\z/) && @order.destination? && @order.name?
+    elsif params[:address_option] == '2' && (@order.post_code =~ /\A\d{7}\z/) && @order.address? && @order.name?
       # 処理なし
     else
       flash[:error] = '情報を正しく入力して下さい。'
@@ -22,6 +22,15 @@ class Public::OrdersController < ApplicationController
   end
   
   def create
+    @order = current_customer.orders.new(order_params)
+    @order.shipping_cost = 800
+    @order.total_payment = @order.shipping_cost + @cart_items.sum(&:subtotal)
+    if @order.save
+      @order.create_order_details(current_customer)
+      redirect_to thanks_path
+    else
+      render :new
+    end
   end
   
   def thanks
@@ -32,8 +41,8 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    @order = current_cusotmer.orders.find(params[:id])
-    @order_details = @order.order.details.includes(:item)
+    @order = current_customer.orders.find(params[:id])
+    @order_details = @order.order_details.includes(:item)
   end
   
   private
