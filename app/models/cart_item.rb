@@ -7,6 +7,6 @@ class CartItem < ApplicationRecord
   validates :amount, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }
 
   def subtotal
-    ActionController::Base.helpers.number_with_delimiter(item.with_tax_price * amount)
+    item.with_tax_price * amount
   end
 end

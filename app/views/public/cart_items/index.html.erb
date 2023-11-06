@@ -24,7 +24,7 @@
             <%= image_tag cart_item.item.get_item_image(40,30), class:"mr-2" %><%= cart_item.item.name %>
           </td>
           <td class="border-dark">
-             <%= item.with_tax_price %>
+             <%= number_with_delimiter(item.with_tax_price) %>
           </td>
           <td class="border-dark">
             <%= form_with model: [item, cart_item], method: :patch, class:"mt-2" do |f| %>
@@ -34,7 +34,7 @@
             <% end %>
           </td>
           <td class="border-dark">
-             <%= cart_item.subtotal %>
+             <%= number_with_delimiter(cart_item.subtotal) %>
           </td>
           <td class="border-dark">
             <%= link_to "削除する", item_cart_item_path(item_id: item.id, id: cart_item.id), method: :delete, class: "btn btn-danger" %>
@@ -52,7 +52,7 @@
       <tbody>
         <tr>
           <td class="table-secondary border-dark p-2 pr-5">合計金額</td>
-          <td class="border-dark p-2 pr-5"><%=  number_with_delimiter(@sum) %></td>
+          <td class="border-dark p-2 pr-5"><%=  number_with_delimiter(@cart_items.sum(&:subtotal)) %>円</td>
         </tr>
       </tbody>
     </table>
