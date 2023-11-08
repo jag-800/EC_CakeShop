@@ -36,7 +36,7 @@
       <%= f.label :address_option_1, '登録済住所から選択' %><br>
       <div class="ml-4">
         <div class="form-group ml-4">
-          <%= f.collection_select(:registered, current_customer.addresses.all, :id, :finally_address) %>
+          <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :finally_address), { prompt: "住所を選択してください" } %>
         </div>
       </div>
     </div>
