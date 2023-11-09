@@ -1,7 +1,7 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
   before_action :ensure_cart_items, only: [:new, :confirm, :create]
-  
+
   def new
     @order = Order.new
   end
@@ -11,16 +11,16 @@ class Public::OrdersController < ApplicationController
     if params[:address_option] == '0'
       @order.get_shipping_informations_from(current_customer)
     elsif params[:address_option] == '1'
-      @selected_address = current_customer.addresses.find(params[:address_id])
+      @selected_address = current_customer.addresses.find_by(id: params[:order][:address_id])
       @order.get_shipping_informations_from(@selected_address)
-    elsif params[:address_option] == '2' && (@order.post_code =~ /\A\d{7}\z/) && @order.address? && @order.name?
+    elsif params[:address_option] == '2' && @order.post_code.present? && (@order.post_code =~ /\A\d{7}\z/) && @order.address.present? && @order.name.present?
       # 処理なし
     else
-      flash[:error] = '情報を正しく入力して下さい。'
+      flash[:notice] = '情報を正しく入力して下さい。'
       render :new
     end
   end
-  
+
   def create
     @order = current_customer.orders.new(order_params)
     @order.shipping_cost = 800
@@ -32,7 +32,7 @@ class Public::OrdersController < ApplicationController
       render :new
     end
   end
-  
+
   def thanks
   end
 
@@ -44,13 +44,13 @@ class Public::OrdersController < ApplicationController
     @order = current_customer.orders.find(params[:id])
     @order_details = @order.order_details.includes(:item)
   end
-  
+
   private
-  
+
   def order_params
     params.require(:order).permit(:post_code, :address, :name, :payment_method)
   end
-  
+
   def ensure_cart_items
     @cart_items = current_customer.cart_items.includes(:item)
     redirect_to items_path unless @cart_items.first
