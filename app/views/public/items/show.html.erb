@@ -1,0 +1,66 @@
+
+<div class="row mt-3">
+  <div class="col-md-2">
+    <table class="border border-dark">
+      <thead>
+        <th class="border border-dark py-2 px-4">ジャンル検索</th>
+      </thead>
+      <tbody>
+        <% @genres.each do |genre| %>
+          <tr>
+            <td class="py-1 px-3"><%= genre.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<div class="col-md-8">
+
+
+  <div class="row">
+    <div class="offset-1 col-md-4">
+      <%= image_tag @item.get_item_image(200,150) %>
+    </div>
+
+    <table class=" offset-2 col-md-4">
+      <tbody>
+        <tr>
+          <td><h5><b><%= @item.name %></b></h5></td>
+        </tr>
+        <tr>
+          <td clas="pb-5"><%= @item.introduction %></td>
+        </tr>
+        <tr>
+          <td>
+            <b>¥<%= number_with_delimiter(@item.with_tax_price) %>(税込)</b>
+            <!--<h6>（税込）</h6>-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row mt-5 ml-auto align-items-center">
+
+     <%= form_with model: [@item, @cart_item], class:"mt-2" do |f| %>
+      <table>
+        <p>数量を選択して下さい。</p>
+        <td>
+          <%= f.hidden_field :item_id, value: @item.id %>
+          <%= f.select :amount, (1..10), {selected: 1}, class: 'form-control form-control-sm' %>
+        </td>
+        <td>
+          <% if customer_signed_in? %>
+            <%= f.submit "カートに入れる", class:"btn btn-success" %>
+          <% else %>
+            <%= link_to "カートに入れる", new_customer_session_path, class:"btn btn-success" %>
+          <% end %>
+        </td>
+      </table>
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>
+</div>

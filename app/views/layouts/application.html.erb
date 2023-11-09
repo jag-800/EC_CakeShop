@@ -6,11 +6,83 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/7654f8b8fe.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex flex-column min-vh-100">
+    <header class="border border-dark">
+      <nav class="navbar navbar-expand-lg navbar-light px-4">
+        <%= link_to "LOGO", root_path, class:"btn btn-lg btn-outline-secondary px-5" %>
+        <div class="d-flex flex-column mt-3 ml-auto">
+          <ul class="row list-unstyled mr-auto">
+            <% if admin_signed_in? %>
+              <li class="mr-5">
+                <%= link_to "商品一覧", admin_items_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="mr-5">
+                <%= link_to "会員一覧", admin_customers_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="mr-5">
+                <%= link_to "注文履歴一覧", admin_orders_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="mr-5">
+                <%= link_to "ジャンル一覧", admin_genres_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"btn btn-outline-secondary" %>
+              </li>
+            <% elsif customer_signed_in? %>
+              <li class="mr-5">
+                <%= link_to "マイページ", mypage_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="mr-5">
+                <%= link_to "商品一覧", items_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="mr-5">
+                <%= link_to "カート", cart_items_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="">
+                <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class:"btn btn-outline-secondary" %>
+              </li>
+            <% else %>
+              <li class="mr-5">
+                <%= link_to "About", homes_about_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="mr-5">
+                <%= link_to "商品一覧", items_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="mr-5">
+                <%= link_to "新規登録", new_customer_registration_path, class:"btn btn-outline-secondary" %>
+              </li>
+              <li class="">
+                <%= link_to "ログイン", new_customer_session_path, class:"btn btn-outline-secondary" %>
+              </li>
+            <% end %>
+          </ul>
+          <% if admin_signed_in? %>
+            <%= form_tag(admin_search_path, method: :get, class:"form-inline my-1 ml-auto") do %>
+              <%= text_field_tag "search[content]", "", :placeholder =>"会員: 姓,名,セイ,メイ / 商品: 商品名", class:"form-control" %>
+              <%= select_tag "search[model]", options_for_select({ "会員" => "customer", "商品" => "item" }), class:"form-control" %>
+              <%= select_tag "search[method]", options_for_select({ "部分一致" => "partial", "前方一致" => "forward", "後方一致" => "backward", "完全一致" => "perfect" }), class:"form-control" %>
+              <%= submit_tag '検索', class: "btn btn-primary" %>
+            <% end %>
+          <% end %>
+        </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-fluid flex-grow-1 border border-dark">
+      <div class="mx-5 mt-5 px-5">
+        <%= yield %>
+      </div>
+    </main>
+
+    <footer class="container-fluid border border-dark p-5">
+      <div></div>
+    </footer>
   </body>
 </html>
+

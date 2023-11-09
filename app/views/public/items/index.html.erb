@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-2">
+    <table class="border border-dark">
+      <thead>
+        <th class="border border-dark py-2 px-4">ジャンル検索</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="py-1 px-3">
+            <%= link_to "全て", items_path %>
+          </td>
+        </tr>
+        <% @genres.each do |genre| %>
+          <tr>
+            <td class="py-1 px-3">
+              <%= link_to genre.name, items_path(genre_id: genre.id) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-8">
+    <div class="d-flex ml-1">
+      <h4 class="mr-2"><b>商品一覧</b></h4>
+      <h6 class="pt-2">(全<%= @all_items_count %>件)</h6>
+    </div>
+
+    <div class="row">
+      <% @items.each do |item| %>
+        <div class="col-md-3">
+          <%= link_to item_path(item.id) do %>
+            <%= image_tag item.get_item_image(150,100) %>
+          <% end %>
+          <p><%= item.name %></p>
+          <p>￥<%= number_with_delimiter(item.with_tax_price) %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <%= paginate @items %>
+</div>
