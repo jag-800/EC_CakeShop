@@ -9,36 +9,13 @@
 </div>
 
 
-<table class="table mt-3">
-  <thead>
-    <tr>
-      <th>商品ID</th>
-      <th>商品名</th>
-      <th>税抜価格</th>
-      <th>ジャンル</th>
-      <th>ステータス</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %><tr>
-      <td><%= item.id %></td>
-      <td>
-        <%= link_to admin_item_path(item.id) do %>
-          <%= item.name %>
-        <% end %>
-      </td>
-      <td><%= number_with_delimiter(item.price) %></td>
-      <td><%= item.genre.name %></td>
-      <% if item.is_active == true %>
-        <td class="text-success font-weight-bold">販売中</td>
-      <% else %>
-        <td class="text-secondary font-weight-bold">販売停止中</td>
-      <% end %>
-    </tr><% end %>
-  </tbody>
-</table>
+<% if @items.first %> <!-- @item.existsと同義、SQL1個分削減(?) -->
+	<%= render 'admin/items/index', items: @items %>
+	<%= paginate @items %>
+<% else %>
+	<h3>対応する商品はありませんでした。</h3>
+<% end %>
 
 <div class="row justify-content-center">
-  <%= paginate @items %>
+  <%= paginate items %>
 </div>
-
