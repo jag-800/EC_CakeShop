@@ -20,7 +20,7 @@
     <%= f.label :address_option, "お届け先" %><br>
 
     <div class="form-group">
-      <%= radio_button_tag :address_option,0, class:"ml-4" %>
+      <%= radio_button_tag :address_option,0, :checked => true, class:"ml-4" %>
       <%= f.label :address_option_0, 'ご自身の住所', class:"mb-0" %>
       <div class="ml-5">
         〒<%= current_customer.post_code %>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="form-group">
-      <%= radio_button_tag :address_option,1, :checked => true, class:"ml-4" %>
+      <%= radio_button_tag :address_option,1, class:"ml-4" %>
       <%= f.label :address_option_1, '登録済住所から選択' %><br>
       <div class="ml-4">
         <div class="form-group ml-4">
