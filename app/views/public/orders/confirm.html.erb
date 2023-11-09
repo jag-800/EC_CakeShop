@@ -4,9 +4,17 @@
   </div>
 </div>
 
-<div>
-  <%= flash[:notice] %>
-</div>
+<p id="notice">
+  <%= flash.now[:notice] %>
+</p>
+<% if @order.errors.any? %>
+  <h3><%= @order.errors.count %> error prohibited this obj from being saved:</h3>
+  <ul>
+    <% @order.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <div class="row">
   <div class="col-md-8">

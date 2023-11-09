@@ -16,7 +16,7 @@ class Public::OrdersController < ApplicationController
     elsif params[:address_option] == '2' && @order.post_code.present? && (@order.post_code =~ /\A\d{7}\z/) && @order.address.present? && @order.name.present?
       # 処理なし
     else
-      flash[:notice] = '情報を正しく入力して下さい。'
+      flash.now[:notice] = '情報を正しく入力して下さい。'
       render :new
     end
   end
