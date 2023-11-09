@@ -28,7 +28,7 @@
         <td><%= I18n.t("enums.order.payment_method.#{@order.payment_method}") %></td>
       </tr>
       <tr>
-        <%= form_with model: @order_details, url: admin_order_path(@order.id), method: :patch do |f| %>
+        <%= form_with model: @order, url: admin_order_path(@order.id), method: :patch do |f| %>
           <th>注文ステータス</th>
           <td>
             <%= f.select :status, Order.statuses.keys.map { |s| [I18n.t("enums.order.status.#{s}"), s] }, selected: @order.status %>
