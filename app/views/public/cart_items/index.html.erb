@@ -1,4 +1,9 @@
 <% if @cart_items.first %>
+
+  <p>
+    <%= flash[:alert] %>
+  </p>
+  
   <div class="row mb-2">
     <div class="offset-md-1">
       <h5 class="px-4 table-secondary">ショッピングカート</h5>

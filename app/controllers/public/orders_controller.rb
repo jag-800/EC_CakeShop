@@ -41,7 +41,12 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    @order = current_customer.orders.find(params[:id])
+    @order = current_customer.orders.find_by(id: params[:id])
+    # confirmでリロードした際の処理
+    unless @order
+      flash[:alert] = "注文に失敗しました。再度操作を行ってください。"
+      redirect_to cart_items_path and return
+    end
     @order_details = @order.order_details.includes(:item)
   end
 
