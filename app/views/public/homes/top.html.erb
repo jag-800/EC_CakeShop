@@ -7,7 +7,9 @@
       <tbody>
         <% @genres.each do |genre| %>
           <tr>
-            <td class="py-1 px-3"><%= genre.name %></td>
+            <td class="py-1 px-3 border border-dark">
+              <%= link_to genre.name, items_path(genre_id: genre.id) %>
+            </td>
           </tr>
         <% end %>
       </tbody>
@@ -15,15 +17,8 @@
   </div>
 
   <div class="col-md-8">
-    <div class="border border-dark p-5">
-      <div class="p-4">
-        <span>
-        ようこそ、ながのCAKEへ！<br>
-        このサイトは、ケーキ販売のECサイトになります。<br>
-        会員でない方も商品の閲覧は出来ますが、<br>
-        購入には会員登録が必要になります。
-      </span>
-      </div>
+    <div class="border border-dark">
+      <%= image_tag 'fruits.jpeg', style: 'width: 100%; height: auto;' %>
     </div>
     <div class="mt-3">
       <h4>新着商品</h4>

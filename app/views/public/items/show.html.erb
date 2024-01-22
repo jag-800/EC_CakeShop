@@ -8,7 +8,9 @@
       <tbody>
         <% @genres.each do |genre| %>
           <tr>
-            <td class="py-1 px-3"><%= genre.name %></td>
+            <td class="py-1 px-3 border border-dark">
+              <%= link_to genre.name, items_path(genre_id: genre.id) %>
+            </td>
           </tr>
         <% end %>
       </tbody>
