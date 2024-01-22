@@ -1,6 +1,8 @@
 # ２ヶ月月目チーム開発課題
 
-## トップページ
+## トップページ画面
+
+![image](https://github.com/jag-800/EC_CakeShop/assets/104123071/3ed535aa-b860-4e66-8c91-fa1ac60c5e45)
 
 
 ## NaganoCake(概要)
